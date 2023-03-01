@@ -26,11 +26,14 @@ else
 fi
 
 # Update /etc/hosts with container's IP address
+
 container_ip=$(sudo lxc list | grep COMP2101-S22 | awk '{print $6}')
 if grep -q "COMP2101-S22" /etc/hosts;then
-	echo "$container_ip COMP2101-S22" | sudo tee -a /etc/hosts > /dev/null
-else
 	sudo sed -i "s/^.*COMP2101-S22.*/$container_ip COMP2101-S22/" /etc/hosts
+
+else
+	echo "$container_ip COMP2101-S22" | sudo tee -a /etc/hosts > /dev/null
+	
 fi
 
 # Install Apache2 in the container if necessary
